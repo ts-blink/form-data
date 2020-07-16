@@ -30,11 +30,13 @@
     "update-readme": "sed -i.bak 's/\\/master\\.svg/\\/v'$(npm --silent run get-version)'.svg/g' README.md",
     "postupdate-readme": "mv README.md.bak READ.ME.md.bak",
     "restore-readme": "mv READ.ME.md.bak README.md",
-    "prepublish": "not-in-publish || npm run prepublishOnly",
     "prepack": "npm run update-readme",
     "postpack": "npm run restore-readme",
     "version": "auto-changelog && git add CHANGELOG.md",
-    "postversion": "auto-changelog && git add CHANGELOG.md && git commit --no-edit --amend && git tag -f \"v$(node -e \"console.log(require('./package.json').version)\")\""
+    "postversion": "auto-changelog && git add CHANGELOG.md && git commit --no-edit --amend && git tag -f \"v$(node -e \"console.log(require('./package.json').version)\")\"",
+    "prepare-for-browser": "browserify lib/form_data.js -s FormData -o lib/browser.js",
+    "prepublish": "in-publish && npm run prepare-for-browser && npm run update-readme || not-in-publish",
+    "postpublish": "npm run restore-readme"
   },
   "engines": {
     "node": ">= 6"
