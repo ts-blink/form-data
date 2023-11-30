@@ -34,9 +34,7 @@
     "postpack": "npm run restore-readme",
     "version": "auto-changelog && git add CHANGELOG.md",
     "postversion": "auto-changelog && git add CHANGELOG.md && git commit --no-edit --amend && git tag -f \"v$(node -e \"console.log(require('./package.json').version)\")\"",
-    "prepare-for-browser": "browserify lib/form_data.js -s FormData -o lib/browser.js",
-    "prepublish": "in-publish && npm run prepare-for-browser && npm run update-readme || not-in-publish",
-    "postpublish": "npm run restore-readme"
+    "prepare-for-browser": "browserify lib/form_data.js -s FormData -o lib/browser.js"
   },
   "engines": {
     "node": ">= 6"
